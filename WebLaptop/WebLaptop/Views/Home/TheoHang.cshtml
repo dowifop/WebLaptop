@@ -1,0 +1,42 @@
+﻿@model IEnumerable<WebLaptop.Models.SanPham>
+@{
+    ViewBag.Title = "TheoHang";
+    Layout = "~/Views/Shared/layoutweb.cshtml";
+}
+
+<h2>Sản phẩm theo hãng</h2>
+
+@Html.DropDownList("maLoai", ViewBag.LoaiSanPham as SelectList, "Chọn loại", new { @class = "form-control", @id = "loaiSanPham" })
+
+<div id="sanPhamContainer">
+    @Html.Partial("_SanPhamPartial", Model)
+</div>
+<div class="btn-container">
+    <a href="@Url.Action("Index","Home")" class="btn btn-dark">Trở về</a>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+    $('#loaiSanPham').change(function () {
+        var selectedLoai = $(this).val();
+        var maNSX = '@ViewBag.maNSX';
+        $.ajax({
+            url: '@Url.Action("LaySanPhamTheoLoai", "Home")',
+            type: 'GET',
+            data: { maLoai: selectedLoai, maNSX: maNSX },
+            success: function (data) {
+                if (data.length > 0) {
+                    $('#sanPhamContainer').html(data);
+                    $('#noProductsMessage').hide();
+                } else {
+                    $('#sanPhamContainer').html('');
+                    $('#noProductsMessage').show();
+                }
+            }
+        });
+    });
+});
+    </script>
+}
+

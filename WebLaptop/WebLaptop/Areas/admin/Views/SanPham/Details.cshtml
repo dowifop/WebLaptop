@@ -1,0 +1,57 @@
+﻿@model WebLaptop.Models.SanPham
+
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Chi tiết sản phẩm</h2>
+        <dl class="dl-horizontal">
+            <dt>Mã Laptop</dt>
+            <dd>@Model.maLaptop</dd>
+
+            <dt>Tên Laptop</dt>
+            <dd>@Model.tenLaptop</dd>
+
+            <dt>Giá</dt>
+            <dd>@Model.gia.ToString("N0")₫</dd>
+
+            <dt>Hình</dt>
+            <dd>
+                <img src="@Model.Hinh" alt="@Model.tenLaptop" style="max-width: 200px;" />
+            </dd>
+
+            <dt>Số lượng</dt>
+            <dd>@Model.SoLuong</dd>
+
+            <dt>Mô tả</dt>
+            <dd>@Model.Mota</dd>
+
+            <dt>Loại</dt>
+            <dd>@Model.Loai.tenLoai</dd>
+
+            <dt>NSX</dt>
+            <dd>@Model.NSX.tenNSX</dd>
+
+
+            <dt>CPU</dt>
+            <dd>@Model.CPU</dd>
+
+            <dt>VGA</dt>
+            <dd>@Model.VGA</dd>
+
+            <dt>RAM</dt>
+            <dd>@Model.RAM</dd>
+
+            <dt>SSD</dt>
+            <dd>@Model.SSD</dd>
+        </dl>
+
+        <p>
+            <a href="@Url.Action("Edit", new { id = Model.maLaptop })" class="btn btn-warning">Sửa</a>
+            <a href="@Url.Action("Index")" class="btn btn-default">Quay lại danh sách</a>
+        </p>
+    </div>
+</div>

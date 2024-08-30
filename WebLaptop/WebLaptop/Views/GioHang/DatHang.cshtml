@@ -1,0 +1,67 @@
+﻿@using WebLaptop.Models
+@model List<cart>
+@{
+    ViewBag.Title = "DatHang";
+    Layout = "~/Views/Shared/layoutweb.cshtml";
+    KhachHang kh = Session["KH"] as KhachHang;
+}
+<link rel="stylesheet" href="~/Content/css/style.css" />
+<link rel="stylesheet" href="~/Content/bootstrap.css" />
+<h2 style="text-align:center">THÔNG TIN GIỎ HÀNG</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Tên Laptop</th>
+            <th>Hình ảnh</th>
+            <th>Số lượng</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sp in Model)
+        {
+            <tr>
+
+                <td>@sp.tenLaptop</td>
+                <td><img src=@sp.Hinh style="width:100px; height:100px " /></td>
+                <td>@sp.SoLuong</td>
+                <td>@sp.gia.ToString("N0")₫</td>
+                <td>@sp.ThanhTien().ToString("N0")₫</td>
+            </tr>
+        }
+        <tr style="font-weight:bold; text-align:right; color:red;">
+            <td colspan="4">Tổng số lượng: @ViewBag.tongSL</td>
+            <td colspan="5">Tổng tiền: @ViewBag.tongTien</td>
+        </tr>
+    </tbody>
+</table>
+<h2 style="text-align:center">THÔNG TIN KHÁCH HÀNG</h2>
+<table class="table table-bordered">
+    <tr>
+        <td>Họ tên: </td>
+        <td>@kh.TenKH</td>
+    </tr>
+    <tr>
+        <td>Địa chỉ: </td>
+        <td>@kh.DiaChi</td>
+    </tr>
+    <tr>
+        <td>Điện thoại: </td>
+        <td>@kh.SDT</td>
+    </tr>
+    <tr>
+        <td>Email: </td>
+        <td>@kh.Email</td>
+    </tr>
+    <tr>
+        <td>Ngày đặt: </td>
+        <td>@DateTime.Now.ToString("dd/MM/yyyy")</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            @Html.ActionLink("ĐỒNG Ý ĐẶT HÀNG", "DongYDatHang", null, new
+            { @class = "btn btn-primary" })
+        </td>
+    </tr>
+</table>

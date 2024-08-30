@@ -1,0 +1,48 @@
+﻿@model WebLaptop.Models.KhachHang
+@{
+    Layout = null;
+}
+<link rel="stylesheet" href="~/Content/css/accountstyle.css" />
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Đăng Ký</title>
+
+</head>
+<body>
+    <div class="login-page">
+        <div class="form">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <input type="text" name="MaKH" placeholder="Tên Đăng Nhập" value="@Model.MaKH" />
+                @Html.ValidationMessageFor(m => m.MaKH)
+
+                <input type="password" name="MatKhau" placeholder="Mật khẩu" value="@Model.MatKhau" />
+                @Html.ValidationMessageFor(m => m.MatKhau)
+
+                <input type="text" name="TenKH" placeholder="Họ tên" value="@Model.TenKH" />
+                @Html.ValidationMessageFor(m => m.TenKH)
+
+                <input type="text" name="SDT" placeholder="Số điện thoại" value="@Model.SDT" />
+                @Html.ValidationMessageFor(m => m.SDT)
+
+                <input type="text" name="DiaChi" placeholder="Địa chỉ" value="@Model.DiaChi" />
+                @Html.ValidationMessageFor(m => m.DiaChi)
+
+                <input type="email" name="Email" placeholder="Email" value="@Model.Email" />
+                @Html.ValidationMessageFor(m => m.Email)
+
+                <button type="submit">Đăng ký</button>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <p class="message">Đã có tài khoản ? <a href="@Url.Action("Login", "Account")">Đăng nhập</a></p>
+                <p class="message">Quay lại trang chủ  <a href="@Url.Action("Index","Home")">Trở về</a></p>
+            }
+        </div>
+    </div>
+</body>
+
+</html>

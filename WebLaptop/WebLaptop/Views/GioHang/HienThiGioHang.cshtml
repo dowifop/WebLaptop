@@ -1,0 +1,64 @@
+﻿@using WebLaptop.Models
+@model List<cart>
+@{
+    ViewBag.Title = "HienThiGioHang";
+    Layout = "~/Views/Shared/layoutweb.cshtml";
+}
+<link rel="stylesheet" href="~/Content/css/style.css" />
+<link rel="stylesheet" href="~/Content/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<h2 class="cart-title">Giỏ hàng của bạn</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Tên Laptop</th>
+            <th>Hình ảnh</th>
+            <th>Số lượng</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sp in Model)
+        {
+            <tr>
+                <td>@sp.tenLaptop</td>
+                <td><img src="@sp.Hinh" style="width: 200px; height:200px " /></td>
+                <td>
+                    <a href="@Url.Action("GiamSoLuong", "GioHang", new { MaSP = sp.maLaptop })" class="btn btn-danger btn-sm">-</a>
+                    <input type="text" value="@sp.SoLuong" style="width:30px; text-align:center;" disabled />
+
+                    @if (sp.SoLuong < sp.soLuongTrongKho) 
+                    {
+                        <a href="@Url.Action("TangSoLuong", "GioHang", new { MaSP = sp.maLaptop })" class="btn btn-success btn-sm">+</a>
+                    }
+                </td>
+                <td>@sp.gia.ToString("N0")₫</td>
+                <td>@sp.ThanhTien().ToString("N0")₫</td>
+                <td >
+                    <a href="@Url.Action("Details", "Home", new { id = sp.maLaptop })" class="btn btn-success">Chi tiết</a>
+                    <a href="@Url.Action("XoaSanPham", "GioHang", new { MaSP = sp.maLaptop })" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+        <tr style="font-weight:bold; text-align:right; color:red;">
+            <td colspan="5">Tổng số lượng: @ViewBag.tongSL</td>
+            <td colspan="1">Tổng tiền: @ViewBag.tongTien</td>
+        </tr>
+        <tr>
+            <td colspan="9">
+                <div class="btn-container">
+                    <a href="@Url.Action("DatHang","GioHang")" class="btn btn-primary">Đặt Hàng</a>
+                    <a href="@Url.Action("Index","Home")" class="btn btn-dark">Quay về trang chủ</a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+

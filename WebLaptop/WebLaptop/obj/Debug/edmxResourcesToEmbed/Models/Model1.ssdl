@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebLaptopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="MaAd" />
+    </Key>
+    <Property Name="MaAd" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TaiKhoan" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="MatKhau" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="TenAd" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CTDH">
+    <Key>
+      <PropertyRef Name="MaCTDH" />
+    </Key>
+    <Property Name="MaCTDH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Gia" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="SoLuong" Type="int" Nullable="false" />
+    <Property Name="MaDH" Type="int" Nullable="false" />
+    <Property Name="maLaptop" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DonHang">
+    <Key>
+      <PropertyRef Name="MaDH" />
+    </Key>
+    <Property Name="MaDH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="DienThoaiNhan" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" />
+    <Property Name="TongTien" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="NgayDH" Type="date" Nullable="false" />
+    <Property Name="TenNguoiNhan" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="EmailNguoNhan" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="MaKH" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="KhachHang">
+    <Key>
+      <PropertyRef Name="MaKH" />
+    </Key>
+    <Property Name="MaKH" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenKH" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SDT" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="MatKhau" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Loai">
+    <Key>
+      <PropertyRef Name="maLoai" />
+    </Key>
+    <Property Name="maLoai" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tenLoai" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NSX">
+    <Key>
+      <PropertyRef Name="maNSX" />
+    </Key>
+    <Property Name="maNSX" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tenNSX" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SanPham">
+    <Key>
+      <PropertyRef Name="maLaptop" />
+    </Key>
+    <Property Name="maLaptop" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tenLaptop" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="gia" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Mota" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Hinh" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="maLoai" Type="int" Nullable="false" />
+    <Property Name="maNSX" Type="int" Nullable="false" />
+    <Property Name="SoLuong" Type="int" Nullable="false" />
+    <Property Name="CPU" Type="nvarchar" MaxLength="100" />
+    <Property Name="VGA" Type="nvarchar" MaxLength="100" />
+    <Property Name="RAM" Type="nvarchar" MaxLength="100" />
+    <Property Name="SSD" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK__CTDH__MaDH__32E0915F">
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
+    <End Role="CTDH" Type="Self.CTDH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DonHang">
+        <PropertyRef Name="MaDH" />
+      </Principal>
+      <Dependent Role="CTDH">
+        <PropertyRef Name="MaDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CTDH__maLaptop__33D4B598">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
+    <End Role="CTDH" Type="Self.CTDH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="maLaptop" />
+      </Principal>
+      <Dependent Role="CTDH">
+        <PropertyRef Name="maLaptop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DonHang__MaKH__300424B4">
+    <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1" />
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KhachHang">
+        <PropertyRef Name="MaKH" />
+      </Principal>
+      <Dependent Role="DonHang">
+        <PropertyRef Name="MaKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SanPham__maLoai__2C3393D0">
+    <End Role="Loai" Type="Self.Loai" Multiplicity="1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Loai">
+        <PropertyRef Name="maLoai" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="maLoai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SanPham__maNSX__2D27B809">
+    <End Role="NSX" Type="Self.NSX" Multiplicity="1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NSX">
+        <PropertyRef Name="maNSX" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="maNSX" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WebLaptopModelStoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CTDH" EntityType="Self.CTDH" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Loai" EntityType="Self.Loai" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NSX" EntityType="Self.NSX" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__CTDH__MaDH__32E0915F" Association="Self.FK__CTDH__MaDH__32E0915F">
+      <End Role="DonHang" EntitySet="DonHang" />
+      <End Role="CTDH" EntitySet="CTDH" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CTDH__maLaptop__33D4B598" Association="Self.FK__CTDH__maLaptop__33D4B598">
+      <End Role="SanPham" EntitySet="SanPham" />
+      <End Role="CTDH" EntitySet="CTDH" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DonHang__MaKH__300424B4" Association="Self.FK__DonHang__MaKH__300424B4">
+      <End Role="KhachHang" EntitySet="KhachHang" />
+      <End Role="DonHang" EntitySet="DonHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SanPham__maLoai__2C3393D0" Association="Self.FK__SanPham__maLoai__2C3393D0">
+      <End Role="Loai" EntitySet="Loai" />
+      <End Role="SanPham" EntitySet="SanPham" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SanPham__maNSX__2D27B809" Association="Self.FK__SanPham__maNSX__2D27B809">
+      <End Role="NSX" EntitySet="NSX" />
+      <End Role="SanPham" EntitySet="SanPham" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

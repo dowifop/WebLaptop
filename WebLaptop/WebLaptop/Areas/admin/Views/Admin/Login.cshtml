@@ -1,0 +1,34 @@
+﻿@model WebLaptop.Models.Admin
+
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/Content/css/accountstyle.css" />
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Đăng Nhập</title>
+</head>
+<body>
+    
+    <div class="login-page">
+       
+        <div class="form">
+            @using (Html.BeginForm("Login", "Admin", FormMethod.Post))
+            {
+                <h1>Đăng nhập Admin</h1>
+                @Html.AntiForgeryToken()
+                <input type="text" name="TaiKhoan" placeholder="Tên đăng nhập" />
+                <input type="password" name="MatKhau" placeholder="Mật khẩu" />
+                <button type="submit">Đăng Nhập</button>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            }
+        </div>
+    </div>
+
+</body>
+</html>

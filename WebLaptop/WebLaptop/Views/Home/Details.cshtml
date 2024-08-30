@@ -1,0 +1,94 @@
+﻿@model WebLaptop.Models.SanPham
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/layoutweb.cshtml";
+}
+<link rel="stylesheet" href="~/Content/css/style.css" />
+<link rel="stylesheet" href="~/Content/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<div class="row product-detail">
+    <div class="offset-md-1 col-md-4 product-image">
+        <figure>
+            <img style="width:100%;" src="@Model.Hinh" alt="@Model.tenLaptop" />
+        </figure>
+    </div>
+    <div class="col-md-6 details">
+        <h3 class="product-name">@Model.tenLaptop</h3>
+        <p class="product-description">
+            <strong>Mô tả:</strong> @Model.Mota
+        </p>
+
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td><strong>Nhà sản xuất:</strong></td>
+                    <td>@Model.NSX.tenNSX</td>
+                </tr>
+                <tr>
+                    <td><strong>Loại:</strong></td>
+                    <td>@Model.Loai.tenLoai</td>
+                </tr>
+                <tr>
+                    <td><strong>CPU:</strong></td>
+                    <td>@Model.CPU</td>
+                </tr>
+                <tr>
+                    <td><strong>RAM:</strong></td>
+                    <td>@Model.RAM</td>
+                </tr>
+                <tr>
+                    <td><strong>SSD:</strong></td>
+                    <td>@Model.SSD</td>
+                </tr>
+                <tr>
+                    <td><strong>VGA:</strong></td>
+                    <td>@Model.VGA</td>
+                </tr>
+                <tr>
+                    <td><strong>Số Lượng:</strong></td>
+                    <td>@Model.SoLuong</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="price">
+            <strong> Giá bán:</strong><span class="price-value"> @Model.gia.ToString("N0")₫</span>
+        </p>
+        <div class="product-actions">
+            @if (Model.SoLuong == 0)
+            {
+                <span class="out-of-stock">Hết hàng</span>
+            }
+            else
+            {
+        <form action="@Url.Action("ThemSanPham", "GioHang", new { MaSP = Model.maLaptop })" method="post">
+            <button type="submit" class="btn-add-to-cart">Thêm vào giỏ hàng</button>
+        </form>
+            }
+        </div>
+
+
+    </div>
+    <h3>Sản phẩm liên quan</h3>
+    <div class="related-products">
+        @foreach (var relatedProduct in ViewBag.RelatedProducts as List<WebLaptop.Models.SanPham>)
+        {
+            <div class="product">
+                <img src="@relatedProduct.Hinh" alt="@relatedProduct.tenLaptop" onclick="redirectToProductDetail(@relatedProduct.maLaptop)">
+                <p onclick="redirectToProductDetail(@relatedProduct.maLaptop)">@relatedProduct.tenLaptop</p>
+                <span>@relatedProduct.gia.ToString("N0")₫</span>
+            </div>
+        }
+    </div>
+
+</div>
+<script>
+    function redirectToProductDetail(productId) {
+        // Chuyển hướng đến trang chi tiết sản phẩm dựa trên productId
+        window.location.href = '/Home/Details/' + productId; 
+    }
+</script>
+
+

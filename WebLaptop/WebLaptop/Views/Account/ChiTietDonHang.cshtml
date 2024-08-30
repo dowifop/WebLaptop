@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Chi Tiết Đơn Hàng";
+    Layout = "~/Views/Shared/layoutweb.cshtml";
+}
+<link rel="stylesheet" href="~/Content/css/style.css" />
+<link rel="stylesheet" href="~/Content/bootstrap.css" />
+<div class="container mt-4">
+    <h2 class="text-center"> Đơn Hàng số @Model.MaDH</h2>
+
+    <div class="mb-3">
+        <strong>Ngày Đặt Hàng:</strong> @Model.NgayDH.ToString("dd/MM/yyyy")
+    </div>
+    <div class="mb-3">
+        <strong>Tên Người Nhận:</strong> @Model.TenNguoiNhan
+    </div>
+    <div class="mb-3">
+        <strong>Email Người Nhận:</strong> @Model.EmailNguoNhan
+    </div>
+    <div class="mb-3">
+        <strong>Số Điện Thoại Người Nhận:</strong> @Model.DienThoaiNhan
+    </div>
+
+    <h3 class="text-center">Danh Sách Sản Phẩm</h3>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Hình Ảnh</th>
+                <th>Tên Sản Phẩm</th>
+                <th>Số Lượng</th>
+                <th>Giá</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ctdh in Model.CTDHs)
+            {
+                var thanhTien = ctdh.SoLuong * ctdh.SanPham.gia;
+                <tr>
+                    <td><img src="@ctdh.SanPham.Hinh" style="width: 100px; height: 100px;"></td>
+                    <td>@ctdh.SanPham.tenLaptop</td>
+                    <td>@ctdh.SoLuong</td>
+                    <td>@ctdh.SanPham.gia.ToString("N0") ₫</td>
+                    <td>@thanhTien.ToString("N0") ₫</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-right font-weight-bold ">
+        Tổng Tiền: @ViewBag.Gia.ToString("N0") ₫
+    </div>
+    <div class="btn-container">
+        <a href="@Url.Action("DanhSachDonHang","Account")" class="btn btn-dark">Trở về</a>
+    </div>
+    <style>
+        .text-right {
+            color:red;
+        }
+    </style>
+</div>

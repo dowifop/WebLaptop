@@ -1,0 +1,31 @@
+﻿@model WebLaptop.Models.KhachHang
+
+@{
+    Layout = null;
+}
+<link rel="stylesheet" href="~/Content/css/accountstyle.css" />
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Đăng Nhập</title>
+</head>
+<body>
+    <div class="login-page">
+        <div class="form">
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input type="text" name="MaKH" placeholder="Tên đăng nhập" />
+                <input type="password" name="MatKhau" placeholder="Mật khẩu" />
+                <button type="submit">Đăng Nhập</button>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <p class="message">Chưa có tài khoản? <a href="@Url.Action("Register", "Account")">Đăng ký</a></p>
+                <p class="message">Quay lại trang chủ  <a href="@Url.Action("Index","Home")">Trở về</a></p>
+            }
+        </div>
+    </div>
+  
+</body>
+</html>

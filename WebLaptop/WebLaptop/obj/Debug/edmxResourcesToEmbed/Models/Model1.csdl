@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebLaptopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="MaAd" />
+    </Key>
+    <Property Name="MaAd" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TaiKhoan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MatKhau" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenAd" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CTDH">
+    <Key>
+      <PropertyRef Name="MaCTDH" />
+    </Key>
+    <Property Name="MaCTDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Gia" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="SoLuong" Type="Int32" Nullable="false" />
+    <Property Name="MaDH" Type="Int32" Nullable="false" />
+    <Property Name="maLaptop" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DonHang" Relationship="Self.FK__CTDH__MaDH__32E0915F" FromRole="CTDH" ToRole="DonHang" />
+    <NavigationProperty Name="SanPham" Relationship="Self.FK__CTDH__maLaptop__33D4B598" FromRole="CTDH" ToRole="SanPham" />
+  </EntityType>
+  <EntityType Name="DonHang">
+    <Key>
+      <PropertyRef Name="MaDH" />
+    </Key>
+    <Property Name="MaDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DienThoaiNhan" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TongTien" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="NgayDH" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="TenNguoiNhan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EmailNguoNhan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MaKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="CTDHs" Relationship="Self.FK__CTDH__MaDH__32E0915F" FromRole="DonHang" ToRole="CTDH" />
+    <NavigationProperty Name="KhachHang" Relationship="Self.FK__DonHang__MaKH__300424B4" FromRole="DonHang" ToRole="KhachHang" />
+  </EntityType>
+  <EntityType Name="KhachHang">
+    <Key>
+      <PropertyRef Name="MaKH" />
+    </Key>
+    <Property Name="MaKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SDT" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MatKhau" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="DonHangs" Relationship="Self.FK__DonHang__MaKH__300424B4" FromRole="KhachHang" ToRole="DonHang" />
+  </EntityType>
+  <EntityType Name="Loai">
+    <Key>
+      <PropertyRef Name="maLoai" />
+    </Key>
+    <Property Name="maLoai" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tenLoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="SanPhams" Relationship="Self.FK__SanPham__maLoai__2C3393D0" FromRole="Loai" ToRole="SanPham" />
+  </EntityType>
+  <EntityType Name="NSX">
+    <Key>
+      <PropertyRef Name="maNSX" />
+    </Key>
+    <Property Name="maNSX" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tenNSX" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="SanPhams" Relationship="Self.FK__SanPham__maNSX__2D27B809" FromRole="NSX" ToRole="SanPham" />
+  </EntityType>
+  <EntityType Name="SanPham">
+    <Key>
+      <PropertyRef Name="maLaptop" />
+    </Key>
+    <Property Name="maLaptop" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tenLaptop" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="gia" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Mota" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Hinh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="maLoai" Type="Int32" Nullable="false" />
+    <Property Name="maNSX" Type="Int32" Nullable="false" />
+    <Property Name="SoLuong" Type="Int32" Nullable="false" />
+    <Property Name="CPU" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="VGA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="RAM" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SSD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CTDHs" Relationship="Self.FK__CTDH__maLaptop__33D4B598" FromRole="SanPham" ToRole="CTDH" />
+    <NavigationProperty Name="Loai" Relationship="Self.FK__SanPham__maLoai__2C3393D0" FromRole="SanPham" ToRole="Loai" />
+    <NavigationProperty Name="NSX" Relationship="Self.FK__SanPham__maNSX__2D27B809" FromRole="SanPham" ToRole="NSX" />
+  </EntityType>
+  <Association Name="FK__CTDH__MaDH__32E0915F">
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
+    <End Role="CTDH" Type="Self.CTDH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DonHang">
+        <PropertyRef Name="MaDH" />
+      </Principal>
+      <Dependent Role="CTDH">
+        <PropertyRef Name="MaDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CTDH__maLaptop__33D4B598">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
+    <End Role="CTDH" Type="Self.CTDH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="maLaptop" />
+      </Principal>
+      <Dependent Role="CTDH">
+        <PropertyRef Name="maLaptop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DonHang__MaKH__300424B4">
+    <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1" />
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KhachHang">
+        <PropertyRef Name="MaKH" />
+      </Principal>
+      <Dependent Role="DonHang">
+        <PropertyRef Name="MaKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SanPham__maLoai__2C3393D0">
+    <End Role="Loai" Type="Self.Loai" Multiplicity="1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Loai">
+        <PropertyRef Name="maLoai" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="maLoai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SanPham__maNSX__2D27B809">
+    <End Role="NSX" Type="Self.NSX" Multiplicity="1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NSX">
+        <PropertyRef Name="maNSX" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="maNSX" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WebLaptopEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="CTDHs" EntityType="Self.CTDH" />
+    <EntitySet Name="DonHangs" EntityType="Self.DonHang" />
+    <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
+    <EntitySet Name="Loais" EntityType="Self.Loai" />
+    <EntitySet Name="NSXes" EntityType="Self.NSX" />
+    <EntitySet Name="SanPhams" EntityType="Self.SanPham" />
+    <AssociationSet Name="FK__CTDH__MaDH__32E0915F" Association="Self.FK__CTDH__MaDH__32E0915F">
+      <End Role="DonHang" EntitySet="DonHangs" />
+      <End Role="CTDH" EntitySet="CTDHs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CTDH__maLaptop__33D4B598" Association="Self.FK__CTDH__maLaptop__33D4B598">
+      <End Role="SanPham" EntitySet="SanPhams" />
+      <End Role="CTDH" EntitySet="CTDHs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DonHang__MaKH__300424B4" Association="Self.FK__DonHang__MaKH__300424B4">
+      <End Role="KhachHang" EntitySet="KhachHangs" />
+      <End Role="DonHang" EntitySet="DonHangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SanPham__maLoai__2C3393D0" Association="Self.FK__SanPham__maLoai__2C3393D0">
+      <End Role="Loai" EntitySet="Loais" />
+      <End Role="SanPham" EntitySet="SanPhams" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SanPham__maNSX__2D27B809" Association="Self.FK__SanPham__maNSX__2D27B809">
+      <End Role="NSX" EntitySet="NSXes" />
+      <End Role="SanPham" EntitySet="SanPhams" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,117 @@
+﻿@model WebLaptop.Models.SanPham
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/admin/Views/Shared/Layout_Admin.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/css/admin.css" />
+<link rel="stylesheet" href="~/Content/bootstrap.css" />
+<ol class="breadcrumb">
+    <li class="breadcrumb-item active">Xóa sản phẩm</li>
+</ol>
+
+<h3>Bạn có chắc chắn muốn xóa?</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            Mã Laptop
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.maLaptop)
+        </dd>
+
+        <dt>
+            Tên Laptop
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tenLaptop)
+        </dd>
+
+        <dt>
+            Hình ảnh
+        </dt>
+
+        <dd>
+            <img src="@Model.Hinh" alt="@Model.tenLaptop" style="width: 100px; height: auto;" />
+        </dd>
+
+        <dt>
+            Giá
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gia)
+        </dd>
+
+        <dt>
+            Mô tả
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mota)
+        </dd>
+        <dt>
+            NSX
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NSX.tenNSX)
+        </dd>
+        <dt>
+            Loại
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Loai.tenLoai)
+        </dd>
+        <dt>
+            Số lượng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+        <dt>
+            CPU
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CPU)
+        </dd>
+        <dt>
+           VGA
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VGA)
+        </dd>
+        <dt>
+           RAM
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RAM)
+        </dd>
+        <dt>
+            SSD
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SSD)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-sm btn-danger" /> |
+            @Html.ActionLink("Trở về", "Index")
+        </div>
+    }
+</div>
+

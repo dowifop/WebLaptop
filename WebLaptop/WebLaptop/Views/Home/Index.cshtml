@@ -1,0 +1,150 @@
+﻿@model IEnumerable<WebLaptop.Models.SanPham>
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/layoutweb.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/css/style.css" />
+<link rel="stylesheet" href="~/Content/bootstrap.css" />
+<body>
+    <div class="container-search">
+        <div class="search">
+            <input id="searchInput" type="text" placeholder="Tìm kiếm...">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="search-results">
+            <ul class="search-results-list">
+                <!-- Kết quả tìm kiếm sẽ được hiển thị ở đây -->
+            </ul>
+        </div>
+    </div>
+    <!-- Banner -->
+    <div class="banner">
+        <img src="~/Content/image/Laptop Banner.jpg" alt="Banner quảng cáo">
+    </div>
+
+    <h2>Laptop nổi bật </h2>
+    <!-- Sản phẩm nổi bật -->
+    <section class="featured-products" >
+        @{
+            var highPriceProducts = Model.OrderByDescending(item => item.gia).Take(4);
+        }
+        @foreach (var item in highPriceProducts)
+        {
+            <div class="product" data-product-id="@item.maLaptop">
+                <img src="@item.Hinh" alt="@item.tenLaptop" onclick="redirectToProductDetail(@item.maLaptop)">
+                <p onclick="redirectToProductDetail(@item.maLaptop)">@item.tenLaptop</p>
+                <span>@item.gia.ToString("N0")₫</span>
+            </div>
+        }
+
+    </section>
+
+    @{
+        List<string> hangSanPham = Model.Select(p => p.NSX.tenNSX).Distinct().ToList();
+
+    }
+
+    @foreach (var hang in hangSanPham)
+    {
+        <h2>Laptop @hang</h2>
+        <section class="featured-products">
+            @foreach (var item in Model.Where(p => p.NSX.tenNSX == hang))
+            {
+                <div class="product"  data-product-id="@item.maLaptop">
+
+                    <img src="@item.Hinh" alt="@item.tenLaptop" onclick="redirectToProductDetail(@item.maLaptop)">
+                    <p onclick="redirectToProductDetail(@item.maLaptop)">@item.tenLaptop</p>
+                    <span>@item.gia.ToString("N0")₫</span>
+                </div>
+            }
+        </section>
+    }
+    <script>
+        function redirectToProductDetail(productId) {
+            // Chuyển hướng đến trang chi tiết sản phẩm dựa trên productId
+            window.location.href = '/Home/Details/' + productId;
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var searchInput = document.querySelector("#searchInput");
+            var sanphams = document.querySelectorAll(".product > p");  // Get the laptop names via the <p> tags inside the .product divs
+            var searchResultsList = document.querySelector(".search-results-list");
+
+            searchInput.addEventListener("input", function () {
+                var searchTerm = searchInput.value.trim().toLowerCase();
+
+                // Loop through laptops (sanphams) and create a search results list
+                var searchResults = [];
+
+                sanphams.forEach(function (sanpham) {
+                    var sanphamName = sanpham.textContent.toLowerCase();
+
+                    if (sanphamName.includes(searchTerm)) {
+                        var productDiv = sanpham.closest(".product");
+                        var sanphamImageSrc = productDiv.querySelector("img").src;
+                        var productId = productDiv.getAttribute("data-product-id");
+
+                        // Trích xuất giá
+                        var sanphamPrice = productDiv.querySelector("span").textContent;
+
+                        searchResults.push({ title: sanpham.textContent, imageSrc: sanphamImageSrc, productId: productId, price: sanphamPrice });
+                    }
+                });
+
+
+                // Display search results
+                displaySearchResults(searchResults);
+            });
+
+            function displaySearchResults(results) {
+                searchResultsList.innerHTML = "";
+
+                if (searchInput.value.trim() === "") {
+                    searchResultsList.style.display = "none";
+                } else {
+                    searchResultsList.style.display = "block";
+
+                    if (results.length === 0) {
+                        var noResultsItem = document.createElement("li");
+                        noResultsItem.textContent = "Không tìm thấy sản phẩm.";
+                        searchResultsList.appendChild(noResultsItem);
+                    } else {
+                        results.forEach(function (result) {
+                            var listItem = document.createElement("li");
+
+                            // Create a clickable container for each search result
+                            var clickableDiv = document.createElement("div");
+                            clickableDiv.onclick = function () {
+                                redirectToProductDetail(result.productId); // Assuming you've returned a productId in the searchResults
+                            };
+                            clickableDiv.style.cursor = "pointer"; // Change cursor to indicate it's clickable
+
+                            var image = document.createElement("img");
+                            image.src = result.imageSrc;
+                            image.alt = result.title;
+                            clickableDiv.appendChild(image);
+
+                            var title = document.createElement("span");
+                            title.textContent = result.title;
+                            clickableDiv.appendChild(title);
+
+                            // Adding the price below the title
+                            var price = document.createElement("span");
+                            price.textContent = result.price;
+                            clickableDiv.appendChild(price);
+                            listItem.appendChild(clickableDiv);
+                            searchResultsList.appendChild(listItem);
+                        });
+
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+
+

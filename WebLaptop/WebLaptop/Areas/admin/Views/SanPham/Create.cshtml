@@ -1,0 +1,84 @@
+﻿@model WebLaptop.Models.SanPham
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/admin/Views/Shared/Layout_Admin.cshtml";
+}
+
+<h2>Thêm Sản Phẩm</h2>
+
+@using (Html.BeginForm("Create", "SanPham", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.tenLaptop, "Tên Laptop")
+        @Html.TextBoxFor(model => model.tenLaptop, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(model => model.tenLaptop, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.gia, "Giá")
+        @Html.TextBoxFor(model => model.gia, new { @class = "form-control", required = "required", type = "number", min = "0" })
+        @Html.ValidationMessageFor(model => model.gia, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Mota, "Mô tả")
+        @Html.TextAreaFor(model => model.Mota, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(model => model.Mota, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.maLoai, "Loại")
+        @Html.DropDownList("maLoai", null, htmlAttributes: new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(model => model.maLoai, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.maNSX, "Nhà sản xuất")
+        @Html.DropDownList("maNSX", null, htmlAttributes: new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(model => model.maNSX, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SoLuong, "Số lượng")
+        @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control", required = "required", type = "number", min = "0" } })
+        @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CPU, "CPU")
+        @Html.EditorFor(model => model.CPU, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+        @Html.ValidationMessageFor(model => model.CPU, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RAM, "RAM")
+        @Html.EditorFor(model => model.RAM, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+        @Html.ValidationMessageFor(model => model.RAM, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.VGA, "VGA")
+        @Html.EditorFor(model => model.VGA, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+        @Html.ValidationMessageFor(model => model.VGA, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SSD, "SSD")
+        @Html.EditorFor(model => model.SSD, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+        @Html.ValidationMessageFor(model => model.SSD, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Hinh, "Hình ảnh sản phẩm")
+        <input type="file" name="Hinh" required />
+        @Html.ValidationMessageFor(model => model.Hinh, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Thêm</button>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,49 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<WebLaptop.Models.SanPham>
+
+
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+<link rel="stylesheet" href="~/Content/css/admin.css" />
+<link rel="stylesheet" href="~/Content/bootstrap.css" />
+<h2>Danh sách sản phẩm</h2>
+<a href="@Url.Action("Create")" class="add-customer-button">Thêm sản phẩm</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã Laptop</th>
+            <th>Tên Laptop</th>
+            <th>Giá</th>
+            <th>Hình</th>
+            <th>Số lượng</th>
+            <th>Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.maLaptop</td>
+                <td>@item.tenLaptop</td>
+                <td> @item.gia.ToString("N0")₫</td>
+                <td>
+                    <img src="@item.Hinh" alt="@item.tenLaptop" style="width: 100px; height: auto;" />
+                </td>
+                <td>@item.SoLuong</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = item.maLaptop })" class="btn btn-sm btn-warning">Sửa</a>
+                    <a href="@Url.Action("Details", new { id = item.maLaptop })" class="btn btn-sm btn-info">Chi tiết</a>
+                    <a href="@Url.Action("Delete", new { id = item.maLaptop })" class="btn btn-sm btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
+        {
+     UlElementClasses = new string[] { "pagination" }
+ })
+    </tbody>
+</table>

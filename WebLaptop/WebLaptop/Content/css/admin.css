@@ -1,0 +1,175 @@
+﻿body {
+    font-family: 'Arial', sans-serif; /* Chọn font mặc định cho trang */
+    background-color: #f5f5f5; /* Màu nền mặc định của trang */
+    margin: 0;
+    padding: 0;
+    color: #333; /* Màu chữ mặc định */
+}
+
+/* Style cho sidebar */
+.sidebar {
+    background-color: #343a40;
+    min-height: 100vh;
+}
+
+    .sidebar .nav-item {
+        margin-bottom: 5px;
+    }
+
+        .sidebar .nav-item a {
+            color: white;
+            padding: 10px 15px;
+            display: block;
+            text-decoration:none;
+            border-radius: 5px;
+            transition: 0.3s ease;
+        }
+
+            .sidebar .nav-item a:hover {
+                background-color: #495057;
+                text-decoration: none;
+            }
+
+/* Styles for main content */
+main {
+    padding: 20px;
+}
+
+/* Font icon styles */
+.fa-home:before {
+    content: '\f015';
+    margin-right: 5px;
+}
+
+.fa-cog:before {
+    content: '\f013';
+    margin-right: 5px;
+}
+
+.fa-shopping-cart:before {
+    content: '\f07a';
+    margin-right: 5px;
+}
+
+.fa-users:before {
+    content: '\f0c0';
+    margin-right: 5px;
+}
+/* admin.css */
+.table-hover > tbody > tr:hover {
+    background-color: #f5f5f5;
+}
+
+.table-bordered th, .table-bordered td {
+    border: 1px solid #dee2e6;
+    padding: 8px 12px;
+}
+
+.table > thead > tr > th {
+    background-color: rgba(0, 0, 0, 0.15);
+    color: black;
+    text-align: center;
+}
+
+.action-icons a {
+    margin-right: 10px;
+}
+
+.action-buttons .btn {
+    margin-right: 5px;
+   
+}
+
+.add-customer-button {
+    background-color: #007bff; /* Màu nền xanh của Bootstrap */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-decoration:none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+    .add-customer-button:hover {
+        background-color: #0056b3; /* Màu xanh tối hơn khi di chuột qua */
+        text-decoration: none;
+        color: white;
+    }
+
+.custom-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333; /* Màu chữ đậm */
+    margin-bottom: 20px;
+}
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+    .pagination a {
+        color: #5a5a5a;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        margin: 0 4px;
+    }
+
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #4CAF50;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+
+        .pagination a:first-child {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        .pagination a:last-child {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #171616;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0; /* Căn phải */
+}
+
+    .dropdown-content a {
+        color: white; /* Đặt màu chữ thành trắng */
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.admin-name {
+    color: white !important;
+}
+

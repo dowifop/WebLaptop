@@ -1,0 +1,21 @@
+﻿@model IEnumerable<WebLaptop.Models.SanPham>
+<link rel="stylesheet" href="~/Content/css/style.css" />
+<link rel="stylesheet" href="~/Content/bootstrap.css" />
+<section class="featured-products">
+    @foreach (var item in Model)
+    {
+        <div>
+            <div class="product" data-product-id="@item.maLaptop">
+                <img src="@item.Hinh" alt="@item.tenLaptop" onclick="redirectToProductDetail(@item.maLaptop)">
+                <p onclick="redirectToProductDetail(@item.maLaptop)">@item.tenLaptop</p>
+                <span>@item.gia.ToString("N0")₫</span>
+            </div>
+        </div>
+    }
+</section>
+<script>
+    function redirectToProductDetail(productId) {
+        // Chuyển hướng đến trang chi tiết sản phẩm dựa trên productId
+        window.location.href = '/Home/Details/' + productId;
+    }
+</script>
